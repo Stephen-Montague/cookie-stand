@@ -1,0 +1,54 @@
+body {
+  display: block;
+  margin: auto;
+  background-color: rgb(135, 250, 185);
+  text-align:justify;
+  font-size: 1.44vw;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+h1 {
+  font-size: 3.2vw;
+  font-weight: bold;
+  margin: 1.5%;
+  text-align: center;
+  background-color: mediumseagreen;
+}
+
+ol{
+  font-size: 2vw;
+  list-style-position: outside;
+  list-style-type:decimal;
+  width: max-content;
+  margin: auto;
+  text-align: center;
+}
+
+ul{
+  display: list-item;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+p{
+  display: block;
+  margin: 2%;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 32% 30% 34%;	
+  margin: 1.6% auto 2%;
+  padding-left: 9%;
+  text-align: center;
+}
+
+.column{
+  text-align: center;
+}
