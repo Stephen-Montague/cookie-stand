@@ -43,8 +43,8 @@ let seattleStore = {
   getSalesString(index){
     let saleCount = String(Math.round(this.simulatedSales[index]));
     let militaryTime = operatingHours[index];
-    let time = (militaryTime % 12)? (militaryTime % 12) : 12; // Make noon 12, not zero.
     let meridiem = militaryTime < 12? 'am' : 'pm';
+    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Midnight, noon 12 not 0.
     return `${time}${meridiem}: ${saleCount} cookies`;
   }
 };
@@ -89,8 +89,8 @@ let tokyoStore = {
   getSalesString(index){
     let saleCount = String(Math.round(this.simulatedSales[index]));
     let militaryTime = operatingHours[index];
-    let time = (militaryTime % 12)? (militaryTime % 12) : 12; // Make noon 12, not zero.
     let meridiem = militaryTime < 12? 'am' : 'pm';
+    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Midnight, noon 12 not 0.
     return `${time}${meridiem}: ${saleCount} cookies`;
   }
 };
@@ -135,8 +135,8 @@ let dubaiStore = {
   getSalesString(index){
     let saleCount = String(Math.round(this.simulatedSales[index]));
     let militaryTime = operatingHours[index];
-    let time = (militaryTime % 12)? (militaryTime % 12) : 12; // Make noon 12, not zero.
     let meridiem = militaryTime < 12? 'am' : 'pm';
+    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Midnight, noon 12 not 0.
     return `${time}${meridiem}: ${saleCount} cookies`;
   }
 };
@@ -181,8 +181,8 @@ let parisStore = {
   getSalesString(index){
     let saleCount = String(Math.round(this.simulatedSales[index]));
     let militaryTime = operatingHours[index];
-    let time = (militaryTime % 12)? (militaryTime % 12) : 12; // Make noon 12, not zero.
     let meridiem = militaryTime < 12? 'am' : 'pm';
+    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Midnight, noon 12 not 0.
     return `${time}${meridiem}: ${saleCount} cookies`;
   }
 };
@@ -228,7 +228,7 @@ let limaStore = {
     let saleCount = String(Math.round(this.simulatedSales[index]));
     let militaryTime = operatingHours[index];
     let meridiem = militaryTime < 12? 'am' : 'pm';
-    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Use 12 for noon, midnight.
+    let time = (militaryTime % 12 > 0)? (militaryTime % 12) : 12; // Midnight, noon 12 not 0.
     return `${time}${meridiem}: ${saleCount} cookies`;
   }
 };
