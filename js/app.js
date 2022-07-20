@@ -35,24 +35,16 @@ Store.prototype.getHourlySale = function(){
 Store.prototype.getRandomHourlyCustomerCount = function(){
   return getRandomIntInclusive(this.minCustomerPerHour, this.maxCustomerPerHour);
 };
-Store.prototype.displaySales = function(){
-  // Append store name
-  let storeName = document.createElement('p');
-  storeName.innerText = this.location;
-  document.body.appendChild(storeName);
-
-  // Append hourly sales
-  let uListElem = document.createElement('ul');
-  document.body.appendChild(uListElem);
-  for (let i = 0; i < this.simulatedSales.length; i++){
-    let hourlySale = document.createElement('li');
-    hourlySale.innerText = this.getSalesString(i);
-    document.body.appendChild(hourlySale);
+Store.prototype.renderSales = function(tableColumnIndex){
+  let tableData = document.createElement('td');
+  if (tableColumnIndex === 0){
+    tableData.innerText = this.location;
+  } else if(tableColumnIndex === lastColumnIndex){
+    tableData.innerText = Math.round(this.simSalesTotal);
+  } else{
+    tableData.innerText = Math.round(this.simulatedSales[tableColumnIndex-1]);
   }
-  // Append total
-  let totalSale = document.createElement('li');
-  totalSale.innerText = `Total: ${Math.round(this.simSalesTotal)} cookies`;
-  document.body.appendChild(totalSale);
+  document.body.appendChild(tableData);
 };
 Store.prototype.getSalesString = function(index){
   let saleCount = String(Math.round(this.simulatedSales[index]));
@@ -72,10 +64,34 @@ new Store('Dubai', 11, 38, 3.7);
 new Store('Paris', 20, 38, 2.3);
 new Store('Lima', 2, 16, 4.6);
 
+
+let tableColumnCount = hoursToStrings.length + 2;
+let firstColumnIndex = 0;
+let lastColumnIndex = tableColumnCount-1; 
+
+// Build Table Header
+let table = document.getElementById('salesTable');
+document.body.appendChild(table);
+for (let i = 0; i < tableColumnCount; i++){
+  if (i === firstColumnIndex){
+    appendToTableHeader(table, '&nbsp;');
+  } else if (i === lastColumnIndex){
+    appendToTableHeader(table, 'Daily Location Total');
+  } else{
+    appendToTableHeader(table, hoursToStrings[i-1]);
+  }
+}
+
 for (let i = 0; i < stores.length; i++){
   stores[i].setSimulatedSales();
   stores[i].simSalesTotal = sumArray(stores[i].simulatedSales);
-  stores[i].displaySales();
+
+  let tableRow = document.createElement('tr');
+  document.body.appendChild(tableRow);
+
+  for (let j = 0; j < tableColumnCount; j++){
+    stores[i].renderSales(j);
+  }
 }
 
 // Utility Functions
@@ -93,4 +109,10 @@ function sumArray(array){
     sum += array[i];
   }
   return sum;
+}
+
+function appendToTableHeader(table, itemToAppend){
+  let tableHeader = document.createElement('th');
+  tableHeader.innerHTML = itemToAppend;
+  document.body.appendChild(tableHeader);
 }
