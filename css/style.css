@@ -3,7 +3,7 @@ body {
   margin: auto;
   background-color: rgb(135, 250, 185);
   text-align:justify;
-  font-size: 1.44vw;
+  font-size: 2vw;
 }
 
 b,
@@ -34,7 +34,7 @@ ul{
   font-weight: bold;
 }
 
-p{
+h2, p, footer{
   display: block;
   margin: 2%;
   width: 50%;
