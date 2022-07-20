@@ -3,8 +3,8 @@
 
 // Globals
 let operatingHours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-let hoursToStrings = ['6am', '7am','8am', '9am','10am', '11am','12pm', 
-  '13pm', '14pm', '15pm', '16pm', '17pm', '18pm', '19pm']
+let hoursToStrings = ['6am', '7am','8am', '9am','10am', '11am','12pm',
+  '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 let stores = [];
 
 // Store Constructor
@@ -24,11 +24,11 @@ function Store(location, minCustPerHour, maxCustPerHour, avgSalePerCust) {
 // Prototypes Functions
 
 Store.prototype.setSimulatedSales = function() {
-  this.simulatedSales = [];  // Clear any previous simulation.
+  this.simulatedSales = []; // Clear any previous simulation.
   for (let i = 0; i < operatingHours.length; i++){
     this.simulatedSales.push(this.getHourlySale());
   }
-}; 
+};
 Store.prototype.getHourlySale = function(){
   return (this.avgSalePerCutomer * this.getRandomHourlyCustomerCount());
 };
@@ -46,12 +46,12 @@ Store.prototype.displaySales = function(){
   document.body.appendChild(uListElem);
   for (let i = 0; i < this.simulatedSales.length; i++){
     let hourlySale = document.createElement('li');
-    hourlySale.innerText = this.getSalesString(i); 
+    hourlySale.innerText = this.getSalesString(i);
     document.body.appendChild(hourlySale);
   }
   // Append total
   let totalSale = document.createElement('li');
-  totalSale.innerText = `Total: ${Math.round(this.simSalesTotal)} cookies`; 
+  totalSale.innerText = `Total: ${Math.round(this.simSalesTotal)} cookies`;
   document.body.appendChild(totalSale);
 };
 Store.prototype.getSalesString = function(index){
@@ -84,7 +84,7 @@ for (let i = 0; i < stores.length; i++){
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min); 
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function sumArray(array){
@@ -93,4 +93,4 @@ function sumArray(array){
     sum += array[i];
   }
   return sum;
-};
+}
