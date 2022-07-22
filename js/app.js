@@ -16,7 +16,8 @@ function Store(location, minCustPerHour, maxCustPerHour, avgSalePerCust) {
   this.avgSalePerCutomer = avgSalePerCust;
   this.simulatedSales = [];
   this.simSalesTotal = null;
-
+  this.setSimulatedSales();
+  this.simSalesTotal = sumArray(this.simulatedSales);
   stores.push(this);
 }
 
@@ -35,7 +36,7 @@ Store.prototype.getHourlySale = function(){
 Store.prototype.getRandomHourlyCustomerCount = function(){
   return getRandomIntInclusive(this.minCustomerPerHour, this.maxCustomerPerHour);
 };
-Store.prototype.renderSales = function(tableColumnIndex){
+Store.prototype.renderSales = function(table, tableColumnIndex){
   let tableData = document.createElement('td');
   if (tableColumnIndex === 0){
     tableData.innerText = this.location;
@@ -44,7 +45,7 @@ Store.prototype.renderSales = function(tableColumnIndex){
   } else{
     tableData.innerText = Math.round(this.simulatedSales[tableColumnIndex-1]);
   }
-  document.body.appendChild(tableData);
+  table.appendChild(tableData);
 };
 Store.prototype.getSalesString = function(index){
   let saleCount = String(Math.round(this.simulatedSales[index]));
@@ -64,35 +65,15 @@ new Store('Dubai', 11, 38, 3.7);
 new Store('Paris', 20, 38, 2.3);
 new Store('Lima', 2, 16, 4.6);
 
-
 let tableColumnCount = hoursToStrings.length + 2;
 let firstColumnIndex = 0;
-let lastColumnIndex = tableColumnCount-1; 
+let lastColumnIndex = tableColumnCount-1;
 
-// Build Table Header
 let table = document.getElementById('salesTable');
-document.body.appendChild(table);
-for (let i = 0; i < tableColumnCount; i++){
-  if (i === firstColumnIndex){
-    appendToTableHeader(table, '&nbsp;');
-  } else if (i === lastColumnIndex){
-    appendToTableHeader(table, 'Daily Location Total');
-  } else{
-    appendToTableHeader(table, hoursToStrings[i-1]);
-  }
-}
 
-for (let i = 0; i < stores.length; i++){
-  stores[i].setSimulatedSales();
-  stores[i].simSalesTotal = sumArray(stores[i].simulatedSales);
-
-  let tableRow = document.createElement('tr');
-  document.body.appendChild(tableRow);
-
-  for (let j = 0; j < tableColumnCount; j++){
-    stores[i].renderSales(j);
-  }
-}
+arrangeTableHeaders();
+appendTableRows();
+appendTableFooter();
 
 // Utility Functions
 
@@ -111,8 +92,59 @@ function sumArray(array){
   return sum;
 }
 
-function appendToTableHeader(table, itemToAppend){
+function arrangeTableHeaders() {
+  document.body.appendChild(table);
+  for (let i = 0; i < tableColumnCount; i++) {
+    if (i === firstColumnIndex) {
+      appendTableHeader('&nbsp;');
+    } else if (i === lastColumnIndex) {
+      appendTableHeader('Daily Location Total');
+    } else {
+      appendTableHeader(hoursToStrings[i - 1]);
+    }
+  }
+}
+
+function appendTableHeader(itemToAppend){
   let tableHeader = document.createElement('th');
   tableHeader.innerHTML = itemToAppend;
-  document.body.appendChild(tableHeader);
+  table.appendChild(tableHeader);
 }
+
+function appendTableRows() {
+  for (let i = 0; i < stores.length; i++) {
+    let tableRow = document.createElement('tr');
+    table.appendChild(tableRow);
+    for (let j = 0; j < tableColumnCount; j++) {
+      stores[i].renderSales(tableRow, j);
+    }
+  }
+}
+
+function appendTableFooter(){
+  // Append Footer Row & Title
+  let footerRow = document.createElement('tr');
+  table.appendChild(footerRow);
+  let tableFooterName = document.createElement('th');
+  tableFooterName.innerText = 'Hourly Total';
+  footerRow.appendChild(tableFooterName);
+
+  // Calculate Hourly Total & Grand Total, Append Hourly
+  let grandTotal = 0;
+  for (let i = 0; i < operatingHours.length; i++){
+    let tableFooterData = document.createElement('th');
+    let hourlyTotal = 0;
+    for (let j = 0; j < stores.length; j++){
+      hourlyTotal += Math.round(stores[j].simulatedSales[i]);
+    }
+    grandTotal += hourlyTotal;
+    tableFooterData.innerText = hourlyTotal;
+    footerRow.appendChild(tableFooterData);
+  }
+
+  // Append Grand Total
+  let tableFooterGrandTotal = document.createElement('th');
+  tableFooterGrandTotal.innerText = grandTotal;
+  footerRow.appendChild(tableFooterGrandTotal);
+}
+
