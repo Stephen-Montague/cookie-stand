@@ -14,9 +14,32 @@
         <table id="salesTable"></table>
       </tableContext>
       <!-- generate a table from js: -->
-      <p>&nbsp;</p>
-      <h2><a href="index.html">Back to Home</a></h2>
     </main>
+    <p>&nbsp;</p>
+
+    <form id="new-store-input">
+      <fieldset>
+        <legend>Add Store</legend>
+
+        <label for="cityName">City:</label>
+        <input id="cityName" type="text" name="cityName" required maxlength="22">
+        
+        <label for="minCustomer">Min&nbsp;Customers:</label>
+        <input id="minCustomer" type="number" name="minCustomer" style=width:1.33cm required min="0" max="9999">
+
+        <label for="maxCustomer">Max&nbsp;Customers:</label>
+        <input id="maxCustomer" type="number" name="maxCustomer" style=width:1.33cm required min="0" max="9999">
+
+        <label for="avgCookie">Avg&nbsp;Cookie&nbsp;Sales&nbsp;Per&nbsp;Hour:</label>
+        <input id="avgCookie" type="number" name="avgCookie" style=width:1.33cm required min="0" max="9999">
+
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+    
+    <p>&nbsp;</p>
+    <h2><a href="index.html">Back to Home</a></h2>
+
     <script src="js/app.js" type="text/javascript"></script>  
   </body>
 </html>
