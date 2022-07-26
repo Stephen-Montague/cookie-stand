@@ -72,9 +72,7 @@ let lastColumnIndex = tableColumnCount-1;
 let tableContext = document.getElementById('tableContext');
 let table = document.getElementById('salesTable');
 
-arrangeTableHeaders();
-appendTableRows();
-appendTableFooter();
+displayTable();
 
 // Utility Functions
 
@@ -93,8 +91,19 @@ function sumArray(array){
   return sum;
 }
 
+function displayTable(){
+  arrangeTableHeaders();
+  appendTableRows();
+  appendTableFooter();
+}
+
+function removeTable(){
+  while(table.firstChild){
+    table.firstChild.remove();
+  }
+}
+
 function arrangeTableHeaders() {
-  // document.body.appendChild(table);
   tableContext.appendChild(table);
   for (let i = 0; i < tableColumnCount; i++) {
     if (i === firstColumnIndex) {
@@ -149,4 +158,24 @@ function appendTableFooter(){
   tableFooterGrandTotal.innerText = grandTotal;
   footerRow.appendChild(tableFooterGrandTotal);
 }
+
+// New Store Form
+// DOM Manipulation
+let newStoreForm = document.getElementById('new-store-input');
+
+// Event Handler
+function handleSubmit(event){
+  event.preventDefault();
+  let storeLocation = event.target.cityName.value;
+  let minCust = Number(event.target.minCustomer.value);
+  let maxCust = Number(event.target.maxCustomer.value);
+  let avgCookie = Number(event.target.avgCookie.value);
+  new Store(storeLocation, minCust, maxCust, avgCookie);
+  removeTable();
+  displayTable();
+  document.getElementById('newStoreForm').reset();
+}
+
+// Event Listener
+newStoreForm.addEventListener('submit', handleSubmit);
 

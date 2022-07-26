@@ -180,6 +180,25 @@ tr:nth-child(even) td {
   background-color: rgb(245,245,245);
 }
 
+/* ********* New Form Input ********* */
+
+#new-store-input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-weight: bold;
+  font-size: 1.3vw;
+  line-height: 2.4rem;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(181, 238, 210);;
+}
+
 /* ********* Contact Styling ********* */
 
 #contact{
@@ -189,6 +208,21 @@ tr:nth-child(even) td {
   background-color: rgb(135, 250, 185);
   text-align:justify;
   font-size: 2vw;
-  width: 100%;
+  width: 120%;
   color:rgb(50, 75, 61);
+}
+
+ol{
+  list-style-position: outside;
+  list-style-type:decimal;
+  width: max-content;
+  margin: auto;
+  text-align: center;
+}
+
+ul{
+  display: list-item;
+  list-style-type:circle;
+  font-weight:bolder;
+  margin: 5%
 }
