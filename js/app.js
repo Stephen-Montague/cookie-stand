@@ -69,6 +69,7 @@ let tableColumnCount = hoursToStrings.length + 2;
 let firstColumnIndex = 0;
 let lastColumnIndex = tableColumnCount-1;
 
+let tableContext = document.getElementById('tableContext');
 let table = document.getElementById('salesTable');
 
 arrangeTableHeaders();
@@ -93,7 +94,8 @@ function sumArray(array){
 }
 
 function arrangeTableHeaders() {
-  document.body.appendChild(table);
+  // document.body.appendChild(table);
+  tableContext.appendChild(table);
   for (let i = 0; i < tableColumnCount; i++) {
     if (i === firstColumnIndex) {
       appendTableHeader('&nbsp;');
